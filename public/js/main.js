@@ -97,38 +97,35 @@ const sectionObserver = new IntersectionObserver((entries) => {
 sections.forEach(s => sectionObserver.observe(s));
  
 // ===== CONTACT FORM =====
+// ===== EMAILJS INIT =====
+emailjs.init('vbglDjrTPtXrvy8rN');
+
+// ===== CONTACT FORM =====
 const contactForm = document.getElementById('contactForm');
 const submitBtn = document.getElementById('submitBtn');
 const formSuccess = document.getElementById('formSuccess');
- 
+
 contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   submitBtn.disabled = true;
   submitBtn.querySelector('.btn-text').textContent = 'Sending...';
- 
-  const data = {
+
+  const templateParams = {
     name: document.getElementById('name').value,
     email: document.getElementById('email').value,
     message: document.getElementById('message').value
   };
- 
+
   try {
-    const res = await fetch('/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    const result = await res.json();
-    if (result.success) {
-      formSuccess.classList.add('show');
-      contactForm.reset();
-      submitBtn.querySelector('.btn-text').textContent = 'Send Message';
-      submitBtn.disabled = false;
-      setTimeout(() => formSuccess.classList.remove('show'), 5000);
-    }
-  } catch (err) {
-    console.error(err);
+    await emailjs.send('service_x779esl', 'template_481atnt', templateParams);
+    formSuccess.classList.add('show');
+    contactForm.reset();
     submitBtn.querySelector('.btn-text').textContent = 'Send Message';
+    submitBtn.disabled = false;
+    setTimeout(() => formSuccess.classList.remove('show'), 5000);
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    submitBtn.querySelector('.btn-text').textContent = 'Try Again';
     submitBtn.disabled = false;
   }
 });
