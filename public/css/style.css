@@ -817,14 +817,26 @@ body.cursor-hover .cursor-follower { opacity: 0; }
 }
 .footer-socials a:hover { color: var(--accent); }
  
-/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .nav { padding: 1.2rem 2rem; }
   .nav.scrolled { padding: 0.8rem 2rem; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
-  .hero { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; text-align: center; }
-  .hero-avatar { display: none; }
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 7rem 2rem 4rem;
+    text-align: center;
+    justify-items: center;
+  }
+  .hero-avatar {
+    display: flex;
+    margin-bottom: 2rem;
+    order: -1;
+  }
+  .avatar-placeholder { width: 200px; height: 200px; }
+  .avatar-ring { width: 230px; height: 230px; }
+  .ring-2 { width: 270px; height: 270px; }
+  .floating-badge { display: none; }
   .hero-cta, .hero-socials { justify-content: center; }
   .hero-bio { margin: 0 auto 2.5rem; }
   .container { padding: 0 2rem; }
